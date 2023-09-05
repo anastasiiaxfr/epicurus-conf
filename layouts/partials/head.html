@@ -1,0 +1,38 @@
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Title }}</title>
+
+  {{ "<!-- mobile responsive meta -->" | safeHTML }}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+  {{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+  {{ hugo.Generator }}
+
+  {{ "<!-- plugins -->" | safeHTML }}
+  {{ range .Site.Params.plugins.css }}
+  <link rel="stylesheet" href="{{ .link | absURL }} ">
+  {{ end }}
+
+  {{ "<!-- Main Stylesheet -->" | safeHTML }}
+  {{ $styles := resources.Get "scss/style.scss" | toCSS | minify }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" media="screen">
+
+  {{ "<!--Favicon-->" | safeHTML }}
+    
+  <link href="{{ `fav/favicon.ico` | relURL }}" rel="shortcut icon" type="image/x-icon" />
+  <link href="{{ `fav/favicon.ico` | relURL }}" rel="icon" type="image/x-icon" />
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{{ `fav/favicon.png` | relURL }}" type="image/x-icon">
+  <link rel="icon" href="{{ `fav/favicon.png` | relURL }}" type="image/x-icon">
+
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ `fav/apple-touch-icon.png` | relURL }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ `fav/favicon-32x32.png` | relURL }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ `fav/favicon-16x16.png` | relURL }}">
+  <link rel="mask-icon" href="{{ `fav/safari-pinned-tab.svg` | relURL }}" color="#fff">
+
+  <link rel="manifest" href="{{ `fav/site.webmanifest` | relURL }}">
+  <link rel="mask-icon" href="{{ `fav/safari-pinned-tab.svg` |relURL }}" color="#4d4f90">
+  <meta name="msapplication-TileColor" content="#4d4f90">
+  <meta name="theme-color" content="#4d4f90">
+</head>
